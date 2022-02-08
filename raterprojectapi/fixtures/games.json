@@ -1,0 +1,16 @@
+[
+    {
+        "model": "raterprojectapi.game",
+        "pk": "1",
+        "fields": {
+            "title": "Adventure Time",
+            "description": "time to adventure",
+            "year_released": 2010,
+            "number_of_players": 4,
+            "estimated_time_to_play": 2,
+            "age_recommendation": 10,
+            "designer": "CN",
+            "player": 1
+        }
+    }
+]

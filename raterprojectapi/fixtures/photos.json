@@ -1,0 +1,11 @@
+[
+    {
+        "model": "raterprojectapi.photo",
+        "pk": 1,
+        "fields": {
+            "url": "www.google.com",
+            "game": 1,
+            "player": 1
+        }
+    }
+]
