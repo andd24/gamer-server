@@ -1,4 +1,4 @@
-"""raterproject URL Configuration
+"""levelup URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,8 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import include
 from django.urls import path
+from raterprojectapi.views import register_user, login_user
+from rest_framework import routers
+from raterprojectapi.views import GameView, CategoryView, ReviewView
+
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'games', GameView, 'game')
+router.register(r'categories', CategoryView, 'category')
+router.register(r'reviews', ReviewView, 'review')
+
 
 urlpatterns = [
+    path('register', register_user),
+    path('login', login_user),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
 ]

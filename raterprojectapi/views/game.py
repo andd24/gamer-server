@@ -16,9 +16,6 @@ class GameView(ViewSet):
         
     def list(self, request):
         games = Game.objects.all()
-        game_type = request.query_params.get('type', None)
-        if game_type is not None:
-            games = games.filter(game_type_id=game_type)
         serializer = GameSerializer(games, many=True)
         return Response(serializer.data)
     
@@ -27,7 +24,8 @@ class GameView(ViewSet):
         try:
             serializer = CreateGameSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save(player=player)
+            game = serializer.save(player=player)
+            game.categories.add(request.data['category'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
@@ -52,8 +50,8 @@ class GameView(ViewSet):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player')
-        depth = 1
+        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player', 'categories')
+        depth = 2
 
 class CreateGameSerializer(serializers.ModelSerializer):
     class Meta:
