@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from raterprojectapi.models import Game, Player
+from raterprojectapi.models import Game, Player, Rating
 
 class GameView(ViewSet):
     def retrieve(self, request, pk):
@@ -44,6 +44,21 @@ class GameView(ViewSet):
         game = Game.objects.get(pk=pk)
         game.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @property
+    def average_rating(self):
+        """Average rating calculated attribute for each game"""
+        ratings = Rating.objects.filter(game=self)
+
+        # Sum all of the ratings for the game
+        total_rating = 0
+        for rating in ratings:
+            total_rating += rating.rating
+            
+        avg = total_rating / len(ratings)
+        return avg
+        # Calculate the averge and return it.
+        # If you don't know how to calculate averge, Google it.
         
 
 

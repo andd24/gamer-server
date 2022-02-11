@@ -10,3 +10,4 @@ class Game(models.Model):
     designer = models.CharField(max_length=50)
     player = models.ForeignKey("Player", on_delete=models.CASCADE)
     categories =  models.ManyToManyField("Category", through="GameCategory", related_name="categories")
+    # average_rating = models.IntegerField()
