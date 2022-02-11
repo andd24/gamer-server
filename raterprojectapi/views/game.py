@@ -44,28 +44,13 @@ class GameView(ViewSet):
         game = Game.objects.get(pk=pk)
         game.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
-    @property
-    def average_rating(self):
-        """Average rating calculated attribute for each game"""
-        ratings = Rating.objects.filter(game=self)
-
-        # Sum all of the ratings for the game
-        total_rating = 0
-        for rating in ratings:
-            total_rating += rating.rating
-            
-        avg = total_rating / len(ratings)
-        return avg
-        # Calculate the averge and return it.
-        # If you don't know how to calculate averge, Google it.
         
 
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player', 'categories')
+        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player', 'categories', 'average_rating')
         depth = 2
 
 class CreateGameSerializer(serializers.ModelSerializer):
