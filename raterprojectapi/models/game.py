@@ -12,17 +12,19 @@ class Game(models.Model):
     player = models.ForeignKey("Player", on_delete=models.CASCADE)
     categories =  models.ManyToManyField("Category", through="GameCategory", related_name="categories")
     
-    @property
-    def average_rating(self):
-        """Average rating calculated attribute for each game"""
-        ratings = Rating.objects.filter(game=self)
+    # @property
+    # def average_rating(self):
+    #     """Average rating calculated attribute for each game"""
+    #     ratings = Rating.objects.filter(game=self)
 
-        # Sum all of the ratings for the game
-        total_rating = 0
-        for rating in ratings:
-            total_rating += rating.rating
+    #     # Sum all of the ratings for the game
+    #     total_rating = 0
+    #     for rating in ratings:
+    #         total_rating += rating.rating
             
-        avg = total_rating / len(ratings)
-        return avg
-        # Calculate the average and return it.
-        # If you don't know how to calculate average, Google it.
+    #     avg = total_rating / len(ratings)
+    #     return avg
+    #     # Calculate the average and return it.
+    #     # If you don't know how to calculate average, Google it.
+    
+    # DONT FORGET TO ADD AVERAGE_RATING BACK IN SERIALIZER AS WELL

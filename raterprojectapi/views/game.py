@@ -50,7 +50,7 @@ class GameView(ViewSet):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player', 'categories', 'average_rating')
+        fields = ('id', 'title', 'description', 'year_released', 'number_of_players', 'estimated_time_to_play', 'age_recommendation', 'designer', 'player', 'categories')
         depth = 2
 
 class CreateGameSerializer(serializers.ModelSerializer):
